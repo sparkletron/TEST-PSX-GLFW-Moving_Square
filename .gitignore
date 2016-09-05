@@ -1,5 +1,10 @@
+//compiler
 movingSquare
 *.exe
 *.cpe
 *.sym
 *.map
+//eclipse
+.cproject
+.project
+.settings
