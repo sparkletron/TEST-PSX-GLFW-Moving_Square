@@ -3,7 +3,7 @@ CFLAGS = `pkg-config --cflags glfw3` -c
 LDFLAGS = `pkg-config --static --libs glfw3 glew`
 PSX_CC = CCPSX.EXE
 WINE = WINEPREFIX=/opt/wine/wine32 wine
-DOSEMU = dosbox -c C: -c "cd home\jconve~1\Docume~1\Programs\PlaySt~1\CrossC~1" -c "CPE2X.EXE movsq.cpe" -c exit
+DOSEMU = dosbox -c C: -c "cd home\jconve~1\Docume~1\Programs\Eclipse\PROJE~14" -c "CPE2X.EXE movsq.cpe" -c exit
 PSX_CFLAGS = -O3 -Dpsx -c
 PSX_ADDRESS = 0x80010000
 PSX_LDFLAGS =  -l libpad -Xo$(PSX_ADDRESS)
