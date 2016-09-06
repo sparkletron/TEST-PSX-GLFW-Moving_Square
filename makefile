@@ -1,21 +1,21 @@
+SOURCES = main.c
+EXEC = movingSquare
 CC = gcc
+PSX_CC = CCPSX.EXE
+PSX_EXEC = movsq.exe
+PSX_CPE2X = CPE2X.EXE
 CFLAGS = `pkg-config --cflags glfw3` -c
 LDFLAGS = `pkg-config --static --libs glfw3 glew`
-PSX_CC = CCPSX.EXE
 WINE = WINEPREFIX=/opt/wine/wine32 wine
-DOSEMU = dosbox -c C: -c "cd home\jconve~1\Docume~1\Programs\Eclipse\PROJE~14" -c "CPE2X.EXE movsq.cpe" -c exit
+DOSEMU = echo 'D:\r cd "$(CURDIR:/%=%)/"\r $(PSX_CPE2X) $(CPE)\r exitemu\r' | dosemu -dumb
 PSX_CFLAGS = -O3 -Dpsx -c
 PSX_ADDRESS = 0x80010000
 PSX_LDFLAGS =  -l libpad -Xo$(PSX_ADDRESS)
-PSX_CPE2X = CPE2X.EXE
-SOURCES = main.c
-OBJECTS = main.o
-PSX_OBJECTS = main.obj
-EXEC = movingSquare
-PSX_EXEC = MOVSQ.EXE
-CPE = movsq.cpe
-SYM = movsq.sym
-MAP = mem.map
+OBJECTS = $(SOURCES:.c=.o)
+PSX_OBJECTS = $(SOURCES:.c=.obj)
+CPE = $(PSX_EXEC:.exe=.cpe)
+SYM = $(PSX_EXEC:.exe=.sym)
+MAP = $(PSX_EXEC:.exe=.map)
 
 all: PSX_BUILD LINUX_BUILD 
 
@@ -35,7 +35,7 @@ PSX_WINE_BUILD: PSX_BUILD
 PSX_BUILD: $(SOURCES) $(PSX_EXEC)
 
 $(PSX_EXEC): $(CPE)
-	$(PSX_CPE2X) $(CPE)
+	$(PSX_CPE2X)
 	rm -rf $(PSX_OBJECTS) $(CPE) $(SYM) $(MAP)
 
 $(CPE): $(PSX_OBJECTS)
