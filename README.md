@@ -43,10 +43,12 @@ Linux (KUBUNTU 14.04)
 	
 ### Make Commands
 
-	make 		... builds all
+	make                ... builds nothing, displays info
 
-	make clean	... removes all compiled files
+	make clean          ... removes all compiled files
 
-	make PSX_BUILD 	... builds for the PlayStation only
+	make PSX_BUILD      ... builds for the PlayStation only
+	
+	make PSX_WINE_BUILD ... builds for the PlayStation using WINE 
 
-	make LINUX_BUILD... builds for Linux only.
+	make LINUX_BUILD    ... builds for Linux only.
