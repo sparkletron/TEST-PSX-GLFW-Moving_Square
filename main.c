@@ -5,10 +5,14 @@
  *      Author: John Convertino
  *		email: electrobs@gmail.com
  *		
- *		DESCRIPTION
+ *		Linux and PlayStation cross platform test application.
+ *		This application is just a square that can move either via
+ *		keyboard in linux (UP, DOWN, LEFT, RIGHT, x for color change)
+ *		or via how ever the pcsx emulator is mapped for d-pad directions
+ *		and the x(cross) button (color change).
  *
- *		Version: ADD_HERE
- *		Sep 5, 2016 *VERSION*	*NOTES*
+ *		Version: 0.1
+ *		Sep 5, 2016 0.1	First version
  *
  *		TODO
  */
@@ -16,7 +20,7 @@
 
 #include <stdlib.h>
 
-//includes passed on platform
+//includes bassed on platform
 #ifdef psx
   #include <libgte.h>
   #include <libgpu.h>
@@ -30,9 +34,8 @@
   #include <GLFW/glfw3.h>
 #endif
 
+//size of the square on screen, will always be 50 pixels of the total screen size
 #define SQUARE_SIZE	50
-#define PROCESS_FAIL	-1
-#define PROCESS_SUCCESS	 0
 //screen defines based on platform
 #ifdef psx
   #define SCREEN_HEIGHT	240
@@ -53,10 +56,12 @@ struct s_polyF4 {
   short x2,y2;
   short x3,y3;
 };
+//global game pad buffer, this is updated by a callback buried in the psyq library
 #ifdef psx
   static u_char g_gamePad[2][34];
 #endif
 
+//to help translate input into a common type
 enum inputTypes {UP, DOWN, LEFT, RIGHT, CHANGE_COLOR, NONE};
 enum inputTypes g_decodedInput = NONE;
 
@@ -65,7 +70,7 @@ enum inputTypes g_decodedInput = NONE;
 void *initGraphics();
 //initialize input
 void initInput(void *window);
-//get input
+//get translated input
 enum inputTypes getInput();
 //move the primitive passed based on input from keyboard or controller
 void movePrimitive(struct s_polyF4 *f4, enum inputTypes decodedInput);
@@ -77,14 +82,18 @@ void display(void *window, struct s_polyF4 *f4);
 int displayLive(void *window);
 //cleanup for glfw, does nothing for psx
 void cleanup(void *window);
-//define a DramPrim for linux using openGL (already defined for psx)
+
 #ifdef psx
+  //create a callback based on the vsync to translate input
   static void inputCallback();
 #else
+  //define a DramPrim for linux using openGL (already defined for psx)
   void DrawPrim(struct s_polyF4 *f4);
+  //callback to decode input
   static void inputCallback(GLFWwindow *window, int key, int scanCode, int action, int mods);
 #endif
 
+//application, takes no arguments at this point
 int main(int argc, char *argv[])
 {
   struct s_polyF4 polyF4;
@@ -106,10 +115,12 @@ int main(int argc, char *argv[])
   return 0;
 }
 
+//initialize graphics for either psx or linux
 void *initGraphics()
 {
   #ifdef psx
     //playstation init
+    //check memory location to see if the unit is PAL or NTSC
     switch(*(char *)0xbfc7ff52)
     {
       case 'E':
@@ -120,7 +131,9 @@ void *initGraphics()
 	break;
     }
 
+    //initialize playstation graphics hardware
     GsInitGraph(SCREEN_WIDTH, SCREEN_HEIGHT, GsINTER | GsOFSGPU, 1, 0);
+    //setup display buffer
     GsDefDispBuff(0, 0, 0, SCREEN_HEIGHT);
   #else
     //glfw init
@@ -146,6 +159,7 @@ void *initGraphics()
     }
 
     glfwMakeContextCurrent(window);
+    //vsync?
     glfwSwapInterval(1);
 
     glewReturnValue = glewInit();
@@ -157,10 +171,14 @@ void *initGraphics()
       exit(EXIT_FAILURE);
     }
 
+    //setup area using openGL calls
+    //set background color
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
+    //change drawing area to one that matches the playstation
     glOrtho(0.0f, SCREEN_WIDTH, SCREEN_HEIGHT, 0.0f, 0.0f, -1.0f);
+    //used to time the color change button press (set to allow initial press to go regardless of time)
     glfwSetTime(1.0f);
 
     return window;
@@ -169,12 +187,16 @@ void *initGraphics()
   return NULL;
 }
 
+//setup input based on arch
 void initInput(void *window)
 {
   #ifdef psx
     //playstation
+    //initialize gamePad buffers which will hold the result of the callback function internal to the library.
     PadInitDirect(g_gamePad[0], g_gamePad[1]);
+    //start communication
     PadStartCom();
+    //set are own callback to update are control input buffer based on the playstations control buffer
     VSyncCallback(inputCallback);
   #else
     //glfw
@@ -185,6 +207,7 @@ void initInput(void *window)
   #endif
 }
 
+//get the input and reset it to NONE
 enum inputTypes getInput()
 {
   enum inputTypes temp = g_decodedInput;
@@ -192,6 +215,7 @@ enum inputTypes getInput()
   return temp;
 }
 
+//universal method of moving the primitive on screen (at this point does a warp to the other side if you touch it)
 void movePrimitive(struct s_polyF4 *f4, enum inputTypes decodedInput)
 {
   #ifdef psx
@@ -253,10 +277,12 @@ void movePrimitive(struct s_polyF4 *f4, enum inputTypes decodedInput)
       break;
     case CHANGE_COLOR:
     #ifdef psx
+      //if time passed is greater than 60 vsync counts(frame rate of 1/60 means this is 1 second)
       if((VSync(-1) - previousTime) > 60)
       {
 	previousTime = VSync(-1);
     #else
+      //check if it has been greater than 1 second since glfw time has been reset
       if(glfwGetTime() > 1.0f)
       {
 	glfwSetTime(0.0f);
@@ -271,6 +297,7 @@ void movePrimitive(struct s_polyF4 *f4, enum inputTypes decodedInput)
   }
 }
 
+//generate primitive
 struct s_polyF4 genPrimitive()
 {
   struct s_polyF4 temp;
@@ -295,27 +322,38 @@ struct s_polyF4 genPrimitive()
   return temp;
 
 }
+
+//display primitive, window is only used for glfw, pass NULL for psx
 void display(void *window, struct s_polyF4 *f4)
 {
 
   #ifdef psx
     //playstation
+    //clear drawing area
     GsClearDispArea(0, 0, 0);
+    //draw primitive to the drawing area (blocks waiting in queue, non-blocking once its up to draw)
     DrawPrim(f4);
+    //wait till all drawing is done
     DrawSync(0);
+    //wait for vsync (1/60)
     VSync(0);
+    //swap display and draw buffer
     GsSwapDispBuff();
   #else
     //GLFW
+    //draw primitive function based on openGL calls
     DrawPrim(f4);
     if(window != NULL)
     {
+      //swap draw and display buffer (back and front buffer)
       glfwSwapBuffers((GLFWwindow *)window);
+      //poll events in the winow system
       glfwPollEvents();
     }
   #endif
 }
 
+//only needed for glfw, does nothing for the psx
 void cleanup(void *window)
 {
   #ifndef psx
@@ -326,6 +364,7 @@ void cleanup(void *window)
   #endif
 }
 
+//check if the window is still open, since the PSX does not have a window, it returns a 1 to run infinitely
 int displayLive(void *window)
 {
   #ifdef psx
@@ -336,6 +375,7 @@ int displayLive(void *window)
 }
 
 #ifdef psx
+  //decode gamePad buffer on vsync callback
   static void inputCallback()
   {
     switch((g_gamePad[0][2] << 8) | g_gamePad[0][3])
@@ -366,6 +406,7 @@ int displayLive(void *window)
     }
   }
 #else
+  //openGL DrawPrim function, mimics what the PSX version does (theirs is native aka, build in)
   void DrawPrim(struct s_polyF4 *f4)
   {
     glClear(GL_COLOR_BUFFER_BIT);
@@ -379,6 +420,7 @@ int displayLive(void *window)
     glFlush();
   }
 
+  //keyboard input callback to decode key pressed into are decoded type.
   static void inputCallback(GLFWwindow *window, int key, int scanCode, int action, int mods)
   {
     if(action == GLFW_PRESS || action == GLFW_REPEAT)

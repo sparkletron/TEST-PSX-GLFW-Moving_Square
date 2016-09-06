@@ -1,14 +1,12 @@
 SOURCES = main.c
 EXEC = movingSquare
+PSX_EXEC = movsq.exe
 CC = gcc
 PSX_CC = CCPSX.EXE
-PSX_EXEC = movsq.exe
 PSX_CPE2X = CPE2X.EXE
 CFLAGS = `pkg-config --cflags glfw3` -c
-LDFLAGS = `pkg-config --static --libs glfw3 glew`
-WINE = WINEPREFIX=/opt/wine/wine32 wine
-DOSEMU = echo 'D:\r cd "$(CURDIR:/%=%)/"\r $(PSX_CPE2X) $(CPE)\r exitemu\r' | dosemu -dumb
 PSX_CFLAGS = -O3 -Dpsx -c
+LDFLAGS = `pkg-config --static --libs glfw3 glew`
 PSX_ADDRESS = 0x80010000
 PSX_LDFLAGS =  -l libpad -Xo$(PSX_ADDRESS)
 OBJECTS = $(SOURCES:.c=.o)
@@ -16,6 +14,9 @@ PSX_OBJECTS = $(SOURCES:.c=.obj)
 CPE = $(PSX_EXEC:.exe=.cpe)
 SYM = $(PSX_EXEC:.exe=.sym)
 MAP = $(PSX_EXEC:.exe=.map)
+WINE = WINEPREFIX=/opt/wine/wine32 wine
+DOSEMU = echo 'D:\r cd "$(CURDIR:/%=%)/"\r $(PSX_CPE2X) $(CPE)\r exitemu\r' | dosemu -dumb
+
 
 all:
 $(info ******** PICK FROM 3 DIFFERENT BUILDS ********)
