@@ -14,9 +14,8 @@ PSX_OBJECTS = $(SOURCES:.c=.obj)
 CPE = $(PSX_EXEC:.exe=.cpe)
 SYM = $(PSX_EXEC:.exe=.sym)
 MAP = $(PSX_EXEC:.exe=.map)
-WINE = WINEPREFIX=/opt/wine/wine32 wine
+WINE = wine
 DOSEMU = echo 'D:\r cd "$(CURDIR:/%=%)/"\r $(PSX_CPE2X) $(CPE)\r exitemu\r' | dosemu -dumb
-
 
 all:
 $(info ******** PICK FROM 3 DIFFERENT BUILDS ********)
@@ -49,6 +48,5 @@ $(CPE): $(PSX_OBJECTS)
 %.obj: %.c
 	$(PSX_CC) $< $(PSX_CFLAGS) -o $@
 
-	
 clean:
 	rm -f $(EXEC) $(PSX_EXEC) $(CPE) $(SYM) $(MAP) $(OBJECTS) $(PSX_OBJECTS)
