@@ -20,7 +20,7 @@
 
 #include <stdlib.h>
 
-//includes bassed on platform
+//includes based on platform
 #ifdef psx
   #include <libgte.h>
   #include <libgpu.h>
