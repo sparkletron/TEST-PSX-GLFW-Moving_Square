@@ -1,11 +1,17 @@
 Test application that compiles on Linux and the PlayStation.
 
 -Requirements-
-PlayStation
+
+PlayStation (WINDOWS XP SP3)
+
 	Psy-Q SDK from psxdev.net
-Linux
-	GLEW
-	GLFW v3.2.1
+	MinGW
+	
+Linux (KUBUNTU 14.04)
+
+	GLEW (repository)
+	
+	GLFW v3.2.1 (download and compile from source)
 
 -make commands-
 

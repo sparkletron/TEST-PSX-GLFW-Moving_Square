@@ -195,7 +195,7 @@ enum inputTypes getInput()
 void movePrimitive(struct s_polyF4 *f4, enum inputTypes decodedInput)
 {
 	#ifdef psx
-		static int previousTime = VSync(1) + 60;
+		static int previousTime = -60;
 	#endif
 	switch(decodedInput)
 	{
