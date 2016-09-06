@@ -1,6 +1,7 @@
 //compiler
 movingSquare
 *.exe
+*.EXE
 *.cpe
 *.sym
 *.map
