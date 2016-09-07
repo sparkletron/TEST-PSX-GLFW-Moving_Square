@@ -66,7 +66,7 @@ Linux using WINE
 Linux using GLFW
 
         1. Download, Compile, and install GLFW v3.2.1 
-           (requires cmake, and will inform you have missing dependcies)
+           (requires cmake, and will inform you of missing dependcies)
         2. Install GLEW (repository version in Ubuntu 14.04 is fine)
 	
 ### Make Commands
