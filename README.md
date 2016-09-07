@@ -49,6 +49,7 @@ Linux (KUBUNTU 14.04)
    3. [GLFW library ... glfw.org](http://www.glfw.org/download.html)
 
 Linux using WINE
+
         1. Install WINE
         2. Install dosemu 
         3. Initialize WINE (winecfg works well for this)
@@ -63,6 +64,7 @@ Linux using WINE
         11. Tell pcsx to use the file
         
 Linux using GLFW
+
         1. Download, Compile, and install GLFW v3.2.1 
            (requires cmake, and will inform you have missing dependcies)
         2. Install GLEW (repository version in Ubuntu 14.04 is fine)
