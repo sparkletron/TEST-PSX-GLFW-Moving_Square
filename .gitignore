@@ -1,5 +1,6 @@
 //CMAKE
-/CMakeFiles
+/CMakeFiles/
+/bin_win/
 *.cmake
 CMakeCache.*
 Makefile
@@ -15,5 +16,14 @@ movingSquare
 .cproject
 .project
 .settings
+//visual studio
+/movsqr.dir/
+/Release/
+/Debug/
+/x64/
+/.vs/
+*.vcxproj*
+*.sdf
+*.sln
 //misc
 .directory
