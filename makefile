@@ -19,11 +19,11 @@ DOSEMU = echo 'D:\r cd "$(CURDIR:/%=%)/"\r $(PSX_CPE2X) $(CPE)\r exitemu\r' | do
 
 all:
 $(info ******** PICK FROM 3 DIFFERENT BUILDS ********)
-$(info LINUX_BUILD    ... build using GLFW and GLEW)
+$(info GCC_BUILD    ... build using GLFW and GLEW)
 $(info PSX_WINE_BUILD ... build using WINE and PSYQ library)
 $(info PSX_BUILD      ... build using PSYQ library in windows)
 
-LINUX_BUILD : $(SOURCES) $(EXEC)
+GCC_BUILD : $(SOURCES) $(EXEC)
 
 $(EXEC): $(OBJECTS)
 	$(CC) $(OBJECTS) -o $@ $(LDFLAGS) 
