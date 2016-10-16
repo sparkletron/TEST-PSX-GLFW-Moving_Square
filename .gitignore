@@ -1,6 +1,6 @@
 //CMAKE
 /CMakeFiles/
-/bin_win/
+/bin*/
 *.cmake
 CMakeCache.*
 Makefile
