@@ -4,19 +4,19 @@ Moving squares is a simple application that has a square that moves from side to
 
 ### Controls
 * UP
- * LINUX: Keyboard UP
+ * PC: Keyboard UP
  * PSX: D-Pad up
 * DOWN
- * LINUX: Keyboard DOWN
+ * PC: Keyboard DOWN
  * PSX: D-Pad down
 * LEFT
- * LINUX: Keyboard LEFT
+ * PC: Keyboard LEFT
  * PSX: D-Pad left
 * RIGHT
- * LINUX: Keyboard RIGHT
+ * PC: Keyboard RIGHT
  * PSX: D-Pad right
 * COLOR CHANGE
- * LINUX: Keyboard x
+ * PC: Keyboard x
  * PSX: x(cross) button
 
 ### Requirements
@@ -59,43 +59,45 @@ Windows (10 PRO)
    
    5. [CMAKE ... cmake.org](https://cmake.org/download/)
    
-FIRST
+##### FIRST
+
 	Download this repo.
 	
-Windows using PsyQ
+##### Windows using Psy-Q
+
 	1. [Visit this link ... psxdev.net](http://www.psxdev.net/help/psyq_install.html)
 
-Linux using WINE with PsyQ
+###### Linux using WINE with Psy-Q
 
-        1. Install WINE
-        2. Install dosemu 
-        3. Initialize WINE (winecfg works well for this)
-        4. Initialize dosemu (just run dosemu)
-        5. Copy psyq directory to wine drive_c directory
-        6. Use the command "wine regedit" to import reg file
-        7. Edit dosemu's autoexec.bat and alter the file to mount your linux drive as root for drive D:.
-           Then add psyq folder in wine as a path.
-        8. Install pcsx
-        9. Execute pcsx
-        10. Add a bios file to pcsx (not needed HLE bios will work fine)
-        11. Tell pcsx to use the file
-        12. Leave pcsx open
-        12. Run cmake . -DCMAKE_TOOLCHAIN_FILE=psx_build/toolchain/psx.cmake
-        13. Run make to compile
-        14. Executable will be located in bin_psx
-        15. Use pcsx "run exe" to navigate to the bin_psx folder
-        16. Open the executable located in that folder.
+	1. Install WINE
+	2. Install dosemu 
+	3. Initialize WINE (winecfg works well for this)
+	4. Initialize dosemu (just run dosemu)
+	5. Copy psyq directory to wine drive_c directory
+	6. Use the command "wine regedit" to import reg file
+	7. Edit dosemu's autoexec.bat and alter the file to mount your linux drive as root for drive D:.
+	    Then add psyq folder in wine as a path.
+	8. Install pcsx
+	9. Execute pcsx
+	10. Add a bios file to pcsx (not needed HLE bios will work fine)
+	11. Tell pcsx to use the file
+	12. Leave pcsx open
+	12. Run cmake . -DCMAKE_TOOLCHAIN_FILE=psx_build/toolchain/psx.cmake
+	13. Run make to compile
+	14. Executable will be located in bin_psx
+	15. Use pcsx "run exe" to navigate to the bin_psx folder
+	16. Open the executable located in that folder.
         
-Linux using GLFW
+###### Linux using GLFW
 
-        1. Download, Compile, and install GLFW v3.2.1 
-           (requires cmake, and will inform you of missing dependcies)
-        2. Install GLEW (repository version in Ubuntu 14.04 is fine)
+	1. Download, Compile, and install GLFW v3.2.1 
+	    (requires cmake, and will inform you of missing dependcies)
+	2. Install GLEW (repository version in Ubuntu 14.04 is fine)
 	3. Run cmake . to create makefile
 	4. Run make, to compile
 	5. Executable will be located in bin_nix
 	
-Windows using GLFW
+###### Windows using GLFW
 
 	1. Copy the contents of the GLFW download to C:\libraries\GLFW.
 	   * You will have to create the C:\libraries\GLFW folder.
