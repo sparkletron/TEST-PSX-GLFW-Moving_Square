@@ -40,6 +40,7 @@ Linux (KUBUNTU 14.04)
 	BUILD_ESSENTIALS
 	
 Windows (10 PRO)
+
 	GLEW
 	GLFW v3.2.1 (download prebuilt binary)
 	cmake for windows
