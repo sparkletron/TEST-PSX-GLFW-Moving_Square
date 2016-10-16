@@ -15,4 +15,5 @@ movingSquare
 .cproject
 .project
 .settings
-
+//misc
+.directory
