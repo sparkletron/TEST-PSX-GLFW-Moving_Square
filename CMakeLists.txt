@@ -3,6 +3,8 @@ include(FindPkgConfig)
 
 #set global exe name
 set(MAIN "movsqr")
+#set project
+project(${MAIN})
 
 #Below are the paths that need to be set for GLEW and GLFW, alter as needed
 set(GLEW_DEFAULT_PREFIX "C:/libraries/GLEW")
@@ -17,7 +19,6 @@ list(APPEND ALL_PREFIX_PATH ${GLFW_DEFAULT_PREFIX})
 set(ALL_LIBRARY_PATH ${GLEW_DEFAULT_LIBRARY})
 list(APPEND ALL_LIBRARY_PATH ${GLFW_DEFAULT_LIBRARY})
 
-project(${MAIN})
 #include directory, same for all build types
 include_directories(include)
 
