@@ -65,6 +65,7 @@ struct s_polyF4 {
 enum inputTypes {UP, DOWN, LEFT, RIGHT, CHANGE_COLOR, NONE};
 enum inputTypes g_decodedInput = NONE;
 
+
 //prototypes
 //initializes graphics
 void *initGraphics();
@@ -83,6 +84,8 @@ int displayLive(void *window);
 //cleanup for glfw, does nothing for psx
 void cleanup(void *window);
 
+
+
 #ifdef psx
   //create a callback based on the vsync to translate input
   static void inputCallback();
@@ -91,6 +94,11 @@ void cleanup(void *window);
   void DrawPrim(struct s_polyF4 *f4);
   //callback to decode input
   static void inputCallback(GLFWwindow *window, int key, int scanCode, int action, int mods);
+void error_callback(int error, const char* description)
+{
+    fputs(description, stderr);
+}
+
 #endif
 
 //application, takes no arguments at this point
@@ -136,10 +144,13 @@ void *initGraphics()
     //setup display buffer
     GsDefDispBuff(0, 0, 0, SCREEN_HEIGHT);
   #else
-    //glfw init
+    //glfw init 
     int returnValue = 0;
     GLenum glewReturnValue = 0;
     GLFWwindow *window = NULL;
+
+    glfwSetErrorCallback(error_callback);
+
 
     returnValue = glfwInit();
 
