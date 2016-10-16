@@ -65,7 +65,7 @@ Windows (10 PRO)
 	
 ###### Windows using Psy-Q
 
-	1. [Visit this link ... psxdev.net](http://www.psxdev.net/help/psyq_install.html)
+  1. [Visit this link ... psxdev.net](http://www.psxdev.net/help/psyq_install.html)
 
 ###### Linux using WINE with Psy-Q
 
