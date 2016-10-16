@@ -63,7 +63,7 @@ Windows (10 PRO)
 
 	Download this repo.
 	
-##### Windows using Psy-Q
+###### Windows using Psy-Q
 
 	1. [Visit this link ... psxdev.net](http://www.psxdev.net/help/psyq_install.html)
 
