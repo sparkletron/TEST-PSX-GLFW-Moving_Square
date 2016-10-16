@@ -1,21 +1,41 @@
 /*
- * PROJECT-GLFW-PSX-MOVING_SQUARE
- *
- *  Created on: Sep 5, 2016
- *      Author: John Convertino
- *		email: electrobs@gmail.com
- *		
- *		Linux and PlayStation cross platform test application.
- *		This application is just a square that can move either via
- *		keyboard in linux (UP, DOWN, LEFT, RIGHT, x for color change)
- *		or via how ever the pcsx emulator is mapped for d-pad directions
- *		and the x(cross) button (color change).
- *
- *		Version: 0.1
- *		Sep 5, 2016 0.1	First version
- *
- *		TODO
- */
+* PROJECT-GLFW-PSX-MOVING_SQUARE
+*
+*  Created on: Sep 5, 2016
+*      Author: John Convertino
+*	email: electrobs@gmail.com
+* 
+* Copyright (C) 2016  John Convertino
+* 
+* This program is free software; you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation; either version 2 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along
+* with this program; if not, write to the Free Software Foundation, Inc.,
+* 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+* 
+* The full License is located in the root directory of this project, named LICENSE.md.
+* 
+* Program Info:
+* 
+* GLFW (Windows and Linux) and PlayStation cross platform test application.
+* This application is just a square that can move either via
+* keyboard in linux (UP, DOWN, LEFT, RIGHT, x for color change)
+* or via how ever the pcsx emulator is mapped for d-pad directions
+* and the x(cross) button (color change).
+*
+* Version: 0.5
+* Oct 16, 2016 0.5	Updated to cmake, and fixed windows build
+* Sep  5, 2016 0.1	First version
+*
+*/
 
 
 #include <stdlib.h>
