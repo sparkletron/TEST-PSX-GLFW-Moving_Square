@@ -2,6 +2,7 @@
 /CMakeFiles/
 /bin*/
 *.cmake
+!psx.cmake
 CMakeCache.*
 Makefile
 makefile
