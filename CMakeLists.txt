@@ -70,23 +70,17 @@ else()
 	  link_directories(${GLFW_DEFAULT_LIBRARY})
         else()
 	  find_package(PkgConfig REQUIRED)
-	  pkg_search_module(GLFW_STATIC REQUIRED glfw3)
+	  pkg_search_module(GLFW REQUIRED glfw3)
 	  link_directories(${GLFW_LIBRARY_DIRS})
         endif()
         
         find_path(GLEW_INCLUDE_DIRS GL/glew.h)
-	find_library(GLEW_STATIC_LIBRARY NAMES glew32s PATH_SUFFIXES lib64)
+	find_library(GLEW_STATIC_LIBRARY NAMES glew32s GLEW glew PATH_SUFFIXES lib64)
 	
 	include_directories(${GLEW_INCLUDE_DIRS})
 	link_directories(${GLEW_DEFAULT_LIBRARY})
 	
 	find_package(OpenGL REQUIRED)
-	
-	message(STATUS ${GLEW_STATIC_LIBRARY})
-	message(STATUS ${GLEW_INCLUDE_DIRS})
-	message(STATUS ${GLFW_STATIC_LIBRARIES})
-	message(STATUS ${GLFW_INCLUDE_DIRS})
-	message(STATUS ${OPENGL_LIBRARY})
 	
 	add_definitions(-DGLEW_STATIC)
         
